@@ -6,6 +6,18 @@
 
 Built for CPIS393 Workplace Skills (Assignment 4: Occupational Burnout) at King Abdulaziz University.
 
+![Muashir home page](docs/screenshots/home.jpg)
+
+## Screenshots
+
+| Self-check | Result |
+| --- | --- |
+| ![A self-check question with five answer options](docs/screenshots/self-check.jpg) | ![Result with personal and work-related gauges and next steps](docs/screenshots/result.jpg) |
+
+| Your months | Arabic version |
+| --- | --- |
+| ![Six months rated on a line chart with a red zone warning](docs/screenshots/months.jpg) | ![The result page in Arabic, right to left](docs/screenshots/result-arabic.jpg) |
+
 ## Features
 
 - **Self-check.** 13 questions from the Copenhagen Burnout Inventory give two scores from 0 to 100, one personal and one work-related. The next steps adapt to the band and to whether the strain comes mainly from work, from life outside work, or from both.
