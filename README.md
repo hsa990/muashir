@@ -81,7 +81,7 @@ src/
 
 ## How it was built
 
-Muashir was built through an AI-assisted engineering workflow that I led as the project owner. I set the requirements and the product and design decisions, tested each iteration and published the release. AI coding tools (Claude Code, Codex and Gemini) generated the code under that direction.
+Muashir was built through an AI-assisted engineering workflow that I led as the project owner. I set the requirements and the product and design decisions, tested each iteration and published the release. AI coding tools generated the code under that direction.
 
 ## Limits
 
