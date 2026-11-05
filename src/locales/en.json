@@ -1,0 +1,439 @@
+{
+  "meta": {
+    "title": "Muashir"
+  },
+  "brand": {
+    "wordAr": "مؤشر",
+    "wordEn": "MUASHIR",
+    "home": "Muashir home page",
+    "tagline": "Burnout early warning",
+    "footerWord": "Muashir"
+  },
+  "a11y": {
+    "skip": "Skip to content"
+  },
+  "nav": {
+    "main": "Main",
+    "overview": "Home",
+    "check": "Self-check",
+    "method": "Method",
+    "trend": "Your months",
+    "signs": "Warning signs"
+  },
+  "lang": {
+    "en": "EN",
+    "ar": "ع",
+    "switchToEn": "Switch to English",
+    "switchToAr": "Switch to Arabic"
+  },
+  "theme": {
+    "toLight": "Switch to light mode",
+    "toDark": "Switch to dark mode"
+  },
+  "footer": {
+    "privacy": "Everything runs in your browser. Nothing you enter is sent anywhere.",
+    "course": "Workplace Skills (CPIS393), Assignment 4",
+    "dept": "Department of Information Systems, Faculty of Computing and Information Technology, King Abdulaziz University",
+    "instructor": "Instructor: Dr. Hadi Oqaibi",
+    "prepared": "Prepared by student Hisham Alawi Albaiti"
+  },
+  "status": {
+    "green": "Green",
+    "amber": "Amber",
+    "red": "Red"
+  },
+  "areas": {
+    "workload": {
+      "name": "Workload",
+      "desc": "Too much work and too little time to recover."
+    },
+    "control": {
+      "name": "Control",
+      "desc": "Little say in how you do your work."
+    },
+    "reward": {
+      "name": "Reward",
+      "desc": "Your effort goes unnoticed, in pay or in thanks."
+    },
+    "community": {
+      "name": "Community",
+      "desc": "Weak support and trust around you."
+    },
+    "fairness": {
+      "name": "Fairness",
+      "desc": "Decisions feel biased or unequal."
+    },
+    "values": {
+      "name": "Values",
+      "desc": "The job clashes with what you believe matters."
+    }
+  },
+  "overview": {
+    "greetingMorning": "Good morning",
+    "greetingEvening": "Good evening",
+    "greetingSub": "How are you holding up?",
+    "heading": "Spot <g>burnout</g> months before you quit.",
+    "intro": "Thirteen short questions show you where you stand. Then look back over your last 6 months and see when it started.",
+    "ctaCheck": "Take the 3-minute check",
+    "pulseTitle": "Your work score",
+    "emberNote": "{{share}}% of the embers around you are hot. That share is your score.",
+    "areas": {
+      "title": "Where burnout <g>comes from</g>",
+      "sub": "Maslach and Leiter link burnout to a poor fit in these six areas of worklife."
+    },
+    "facts": {
+      "questions": "13 questions",
+      "time": "3 minutes",
+      "private": "Stays on your device"
+    },
+    "start": {
+      "title": "Start with <g>one question</g>.",
+      "sub": "Answer it now and the other 12 follow. You see your result at the end.",
+      "continueTitle": "Pick up where you left off",
+      "doneTitle": "Your check is finished",
+      "progress": "{{done}} of {{total}} answered",
+      "continue": "Continue the check",
+      "seeResult": "See my result"
+    },
+    "status": {
+      "eyebrow": "Where you stand",
+      "cta": "Look back at your months",
+      "signs": "{{count}} of {{total}} warning signs ticked"
+    },
+    "steps": {
+      "title": "How to use Muashir",
+      "one": {
+        "name": "Take the check",
+        "desc": "13 questions about the last few weeks."
+      },
+      "two": {
+        "name": "Look back",
+        "desc": "Rate your last 6 months and see when it started."
+      },
+      "three": {
+        "name": "Catch the signs",
+        "desc": "Tick what you notice and get clear next steps."
+      }
+    }
+  },
+  "check": {
+    "eyebrow": "Self-check",
+    "heading": "How close are you to <g>burnout</g>?",
+    "intro": "Answer for the last few weeks. There are no right answers. You see your result after the last question.",
+    "progress": "Questions",
+    "jumpTo": "Go to question {{n}}",
+    "questionOf": "Question {{n}} of {{total}}",
+    "sections": {
+      "personal": "Personal burnout",
+      "work": "Work-related burnout"
+    },
+    "reverseHint": "This question is reverse scored: more energy lowers your score.",
+    "keyboardHint": "Keys 1 to 5 answer, arrow keys move.",
+    "prev": "Previous question",
+    "next": "Next question",
+    "resultsTitle": "Your result",
+    "gaugePersonal": "Personal",
+    "gaugeWork": "Work-related",
+    "bands": {
+      "low": "Low",
+      "moderate": "Moderate",
+      "high": "High",
+      "severe": "Severe"
+    },
+    "adviceTitle": "What to do next",
+    "meaning": {
+      "low": "You are in the low range. Your answers show little sign of burnout right now, so the goal is to keep it that way.",
+      "moderate": "You are in the moderate range. The strain is real but still early, which is the best time to act.",
+      "high": "You are in the high range. This has likely been building for a while, and a weekend off will not fix it alone.",
+      "severe": "Your answers are at the top of the scale. Please do not try to carry this alone."
+    },
+    "sources": {
+      "work": "Your work score is higher, so your tiredness seems tied mostly to your job.",
+      "personal": "Your personal score is higher, so your tiredness may have causes beyond work, such as sleep, health or duties at home.",
+      "both": "Your two scores are close, so the strain seems to reach both your work and the rest of your life."
+    },
+    "advice": {
+      "low": {
+        "steps": [
+          {
+            "title": "Name what is working",
+            "how": "Write down two things that keep you well, such as a fixed finish time or a walk after work, and hold on to them on busy days."
+          },
+          {
+            "title": "Look back at your months",
+            "how": "One check only shows today. Rate your last 6 months to make sure nothing is slowly sliding."
+          },
+          {
+            "title": "Check again in 4 weeks",
+            "how": "Set a reminder now and write down both scores so you can compare them."
+          }
+        ]
+      },
+      "moderate": {
+        "first": {
+          "work": {
+            "title": "Find what drains you most",
+            "how": "It might be overtime, constant meetings or unclear tasks. Ask your manager for one specific change, such as moving a deadline or handing over a task."
+          },
+          "personal": {
+            "title": "Look for the drain outside work",
+            "how": "Check your sleep, your health and your duties at home this week, and start with the easiest one to change."
+          },
+          "both": {
+            "title": "Pick one source of pressure",
+            "how": "Write down what tired you most this week, at work or at home, and focus on changing that one thing."
+          }
+        },
+        "steps": [
+          {
+            "title": "Set a daily stop time",
+            "how": "Choose when your work ends each day, and do not answer work messages after it for the next 2 weeks."
+          },
+          {
+            "title": "Check again in 4 weeks",
+            "how": "If your score has not come down by then, talk to your manager or a specialist."
+          }
+        ]
+      },
+      "high": {
+        "first": {
+          "work": {
+            "title": "Talk to your manager this week",
+            "how": "Ask for 15 minutes. Explain what has become too much, then ask for one clear change: fewer tasks, a later deadline or less overtime."
+          },
+          "personal": {
+            "title": "Ask for help with what you carry",
+            "how": "Tell someone you trust how tired you have been, and ask them to take one duty off you for now."
+          },
+          "both": {
+            "title": "Lighten the load at work and at home",
+            "how": "Ask your manager for one clear change, and ask someone you trust to take one duty off you."
+          }
+        },
+        "steps": [
+          {
+            "title": "Take real time off",
+            "how": "Use part of your annual leave, even a few days, and stay away from work messages. Rest helps, but the pressure returns if nothing changes."
+          },
+          {
+            "title": "Book a session with a specialist",
+            "how": "A psychologist can help you assess how serious this is and build a plan before it gets worse."
+          }
+        ]
+      },
+      "severe": {
+        "steps": [
+          {
+            "title": "See a doctor or specialist this week",
+            "how": "Tell them your result and how long you have felt this way, so they can also check whether something else is behind it."
+          },
+          {
+            "title": "Tell one person today",
+            "how": "Choose someone you trust and tell them plainly that you are exhausted. You do not have to explain everything."
+          },
+          {
+            "title": "Ask for a lighter load",
+            "how": "Ask your manager to reduce your tasks for now, and ask your doctor whether you need sick leave. Put off big decisions like resigning until you have rested."
+          }
+        ]
+      }
+    },
+    "disclaimer": "This tool is for awareness only. It is not a medical diagnosis and does not replace seeing a specialist.",
+    "scales": {
+      "frequency": {
+        "0": "Never",
+        "25": "Seldom",
+        "50": "Sometimes",
+        "75": "Often",
+        "100": "Always"
+      },
+      "degree": {
+        "0": "Very low",
+        "25": "Low",
+        "50": "Somewhat",
+        "75": "High",
+        "100": "Very high"
+      }
+    },
+    "questions": {
+      "1": "How often do you feel tired?",
+      "2": "How often are you physically exhausted?",
+      "3": "How often are you emotionally exhausted?",
+      "4": "How often do you think: \"I can't take it anymore\"?",
+      "5": "How often do you feel worn out?",
+      "6": "How often do you feel weak and likely to get sick?",
+      "7": "Is your work emotionally exhausting?",
+      "8": "Do you feel burnt out because of your work?",
+      "9": "Does your work frustrate you?",
+      "10": "Do you feel worn out at the end of the working day?",
+      "11": "Are you exhausted in the morning at the thought of another day at work?",
+      "12": "Do you feel that every working hour is tiring for you?",
+      "13": "Do you have enough energy for family and friends in your free time?"
+    },
+    "change": "Change my answers",
+    "restart": "Start a new check",
+    "seeMonths": "See when it started"
+  },
+  "method": {
+    "eyebrow": "Method",
+    "heading": "Where the <g>numbers</g> come from.",
+    "intro": "Muashir goes deep on one point: early detection. It pairs a validated self-check with a simple look back over your last 6 months.",
+    "sections": {
+      "what": {
+        "title": "What burnout is",
+        "body": "The WHO lists burnout in ICD-11 under code QD85 as an occupational phenomenon, not a medical condition. It comes from chronic workplace stress that has not been managed well, and it shows as exhaustion, distance from the job, and lower performance."
+      },
+      "focus": {
+        "title": "Why early detection",
+        "body": "Researchers argue that spotting burnout symptoms early can support early treatment. One check only shows today, while looking back over months can show when a problem began."
+      },
+      "cbi": {
+        "title": "Why the CBI",
+        "body": "We chose the Copenhagen Burnout Inventory over the Maslach Burnout Inventory because the CBI is free to use, while the MBI is a paid, licensed instrument. That makes it practical to repeat every month."
+      },
+      "rule": {
+        "title": "How the warning works",
+        "body": "Your check score sets your zone. On Your months, if you rate two months in a row worse than the month before, you get an early warning before you reach red. The rule is a simple design choice for this project, not a validated clinical rule, and the month ratings are your own impression, not part of the Copenhagen inventory. The advice after the check starts from your higher score when the two differ by 10 points or more. That gap is also our own choice."
+      }
+    },
+    "bandsTitle": "Score bands",
+    "band": "Band",
+    "range": "Score",
+    "referencesTitle": "References",
+    "zone": "Zone"
+  },
+  "breath": {
+    "title": "Take one minute",
+    "sub": "A slow breath between tasks.",
+    "start": "Start",
+    "stop": "Stop",
+    "in": "Breathe in",
+    "hold": "Hold",
+    "out": "Breathe out",
+    "idle": "Ready when you are"
+  },
+  "trend": {
+    "eyebrow": "Your months",
+    "heading": "When did it <g>start</g>?",
+    "intro": "Think back over your last 6 months and tap how you felt in each one. In a minute, you can see when things began to change.",
+    "gridTitle": "How did you feel each month?",
+    "gridHint": "Tap one dot in each month. Start from the oldest.",
+    "progress": "{{done}} of {{total}} months",
+    "levels": {
+      "1": "Great",
+      "2": "Fine",
+      "3": "Tired",
+      "4": "Drained",
+      "5": "Burnt out"
+    },
+    "insight": {
+      "title": "What your months show",
+      "start": "Start with the oldest month, the first one on the left.",
+      "more": "Rate at least 3 months to see a pattern."
+    },
+    "status": {
+      "steady": {
+        "title": "Steady",
+        "body": "Things are not getting worse. Look again next month."
+      },
+      "rising": {
+        "title": "Early warning",
+        "body": "It has got worse two months in a row. Act now, before it goes further."
+      },
+      "amber": {
+        "title": "Amber",
+        "body": "You have been feeling tired lately. Pick one source of pressure and ease it this month."
+      },
+      "red": {
+        "title": "Red",
+        "body": "You have been drained lately. Get support now."
+      }
+    },
+    "started": "The slide started in {{month}}.",
+    "zones": {
+      "green": {
+        "do": "Keep your habits and check again next month."
+      },
+      "amber": {
+        "do": "Find what drains you most, and ask your manager for one clear change."
+      },
+      "red": {
+        "do": "Take leave if you can, and book a visit with a doctor or specialist."
+      }
+    },
+    "checkAgain": "Take the self-check",
+    "reset": "Start over",
+    "clear": "Delete all my data",
+    "clearConfirm": "Tap again to delete everything"
+  },
+  "signs": {
+    "eyebrow": "Warning signs",
+    "heading": "What burnout <g>looks like</g>.",
+    "intro": "The WHO describes burnout in three ways. Tick only what really happened to you this month. This list is separate from your score and does not change it.",
+    "stepsTitle": "Your next steps",
+    "takeCheck": "Take the self-check",
+    "clear": "Clear my ticks",
+    "summary": {
+      "none": "Nothing ticked yet. Tick what applies and your steps appear here.",
+      "few": "A few early signs. Try the steps below and look again next month.",
+      "many": "Several signs at once. Talk to someone you trust, and take the self-check.",
+      "all": "All three areas are showing. Consider seeing a doctor or specialist."
+    },
+    "dimensions": {
+      "exhaustion": {
+        "name": "Exhaustion",
+        "desc": "Your energy runs out and does not come back easily."
+      },
+      "distance": {
+        "name": "Distance from work",
+        "desc": "You pull away from your job and feel negative about it."
+      },
+      "efficacy": {
+        "name": "Lower performance",
+        "desc": "You feel you are doing and achieving less than usual."
+      }
+    },
+    "items": {
+      "tired": {
+        "name": "I wake up tired even after enough sleep",
+        "tip": "Keep a steady sleep time this week, and take real breaks at work."
+      },
+      "sleep": {
+        "name": "My sleep has got worse",
+        "tip": "Stop work an hour before bed, and aim for 7 hours."
+      },
+      "sick": {
+        "name": "I get sick more than usual",
+        "tip": "See a doctor early. Do not push through it."
+      },
+      "dread": {
+        "name": "I dread going to work",
+        "tip": "Write down what bothers you most, and tell someone you trust."
+      },
+      "cynical": {
+        "name": "I have become negative about my job",
+        "tip": "Look for one part of your job you can change this month."
+      },
+      "withdrawn": {
+        "name": "I am pulling away from colleagues",
+        "tip": "Sit with a colleague you trust this week, even just for coffee."
+      },
+      "focus": {
+        "name": "I lose focus quickly",
+        "tip": "Work on one task at a time, with short breaks between."
+      },
+      "late": {
+        "name": "I am late on tasks I used to finish on time",
+        "tip": "Ask your manager which tasks matter most, and delay the rest."
+      },
+      "achieve": {
+        "name": "I feel I am not achieving anything",
+        "tip": "Write down one small win every day."
+      }
+    },
+    "teammate": {
+      "title": "See these in a teammate?",
+      "body": "Ask in private, listen without judging, and suggest they take the check. Burnout is not a weakness, and asking early helps."
+    }
+  }
+}

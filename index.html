@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="description" content="Muashir: your personal burnout early warning." />
+    <meta name="theme-color" content="#f5efe4" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#15100c" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
+    <title>Muashir | مؤشر</title>
+    <script>
+      // Runs before first paint so the page never flashes the wrong theme or direction.
+      (function () {
+        var d = document.documentElement
+        var lang, theme
+        try {
+          lang = localStorage.getItem('muashir-lang')
+          theme = localStorage.getItem('muashir-theme')
+        } catch (e) {}
+        if (lang !== 'ar' && lang !== 'en') {
+          lang = (navigator.language || '').toLowerCase().indexOf('ar') === 0 ? 'ar' : 'en'
+        }
+        d.lang = lang
+        d.dir = lang === 'ar' ? 'rtl' : 'ltr'
+        var host = d.getAttribute('data-theme')
+        if (theme !== 'dark' && theme !== 'light' && host) theme = host
+        var dark = theme === 'dark' || (theme !== 'light' && matchMedia('(prefers-color-scheme: dark)').matches)
+        d.classList.toggle('dark', dark)
+      })()
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

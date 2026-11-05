@@ -1,0 +1,7 @@
+node_modules
+dist
+dist-page
+*.local
+.DS_Store
+.claude/
+*.docx

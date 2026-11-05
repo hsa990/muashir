@@ -1,0 +1,1012 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Registered so the page glow can animate when the burnout score changes. */
+@property --heat {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0.5;
+}
+
+/* Registered too, so the colour eases along the thermal path instead of jumping. */
+@property --heat-colour {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #e2a33b;
+}
+
+@property --beam {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+/* Warm sand and coffee neutrals, so the thermal colours feel like a fire on a desert night. */
+:root {
+  --teal: #19a39a;
+  --amber: #e2a33b;
+  --ember: #e0532f;
+  --thermal-dir: 90deg;
+  --thermal: linear-gradient(var(--thermal-dir), var(--teal), var(--amber) 55%, var(--ember));
+
+  --bg: #f5efe4;
+  --surface: #fffbf4;
+  --surface-2: #f1e9db;
+  --ink: #2b1d14;
+  --muted: #72604e;
+  --line: #e8decd;
+  --focus: #0f7f77;
+  --glass: rgb(255 251 244 / 0.92);
+  --night: #1b120d;
+  --shadow: 0 1px 2px rgb(74 46 22 / 0.05), 0 16px 36px -22px rgb(74 46 22 / 0.3);
+
+  --low: #2a8a55;
+  --medium: #a87308;
+  --high: #c8552c;
+  --critical: #b0283c;
+
+  --f-display: 'Bricolage Grotesque Variable', 'Noto Sans Arabic Variable', system-ui, sans-serif;
+  --f-body: 'Figtree Variable', 'Noto Sans Arabic Variable', system-ui, sans-serif;
+  --f-mono: 'JetBrains Mono Variable', 'Noto Sans Arabic Variable', ui-monospace, monospace;
+}
+
+:root[lang='ar'] {
+  /* Noto keeps letters side by side in words like في and إلى, where other faces stack them. */
+  --f-display: 'Noto Sans Arabic Variable', 'Bricolage Grotesque Variable', system-ui, sans-serif;
+  --f-body: 'Noto Sans Arabic Variable', 'Figtree Variable', system-ui, sans-serif;
+}
+
+:root[dir='rtl'] {
+  --thermal-dir: 270deg;
+}
+
+.dark {
+  --bg: #15100c;
+  --surface: #211912;
+  --surface-2: #2c2219;
+  --ink: #f8efe3;
+  --muted: #bca896;
+  --line: #372b21;
+  color-scheme: dark;
+  --focus: #4fd1c5;
+  --glass: rgb(33 25 18 / 0.72);
+  --night: #120c08;
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 16px 36px -20px rgb(0 0 0 / 0.65);
+
+  --low: #55c98a;
+  --medium: #e3b34f;
+  --high: #f08a62;
+  --critical: #f27388;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-tone: var(--tone);
+  --color-low: var(--low);
+  --color-medium: var(--medium);
+  --color-high: var(--high);
+  --color-critical: var(--critical);
+  --font-display: var(--f-display);
+  --font-sans: var(--f-body);
+  --font-mono: var(--f-mono);
+  --radius-card: 24px;
+  --shadow-card: var(--shadow);
+}
+
+html {
+  transition:
+    --heat 1.2s ease,
+    --heat-colour 1.2s ease;
+  scroll-padding-top: 6rem;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(60rem 34rem at 92% -6rem, color-mix(in srgb, var(--heat-colour) 18%, transparent), transparent 70%),
+    radial-gradient(45rem 28rem at 4% 6rem, color-mix(in srgb, var(--heat-colour) 9%, transparent), transparent 70%),
+    var(--bg);
+  background-repeat: no-repeat;
+  color: var(--ink);
+  font-family: var(--f-body);
+  line-height: 1.6;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+:root[lang='ar'] body {
+  line-height: 1.75;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--f-display);
+  font-weight: 800;
+  line-height: 1.12;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+:root[lang='en'] h1,
+:root[lang='en'] h2 {
+  letter-spacing: -0.02em;
+}
+
+:root[lang='ar'] h1,
+:root[lang='ar'] h2,
+:root[lang='ar'] h3 {
+  line-height: 1.3;
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+@layer components {
+  .wrap {
+    width: 100%;
+    max-width: 1240px;
+    margin-inline: auto;
+    padding-inline: 16px;
+  }
+
+  @media (min-width: 640px) {
+    .wrap {
+      padding-inline: 24px;
+    }
+  }
+
+  .card {
+    position: relative;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow);
+  }
+
+  .glass-bar {
+    background: var(--glass);
+    -webkit-backdrop-filter: blur(18px) saturate(1.5);
+    backdrop-filter: blur(18px) saturate(1.5);
+    border: 1px solid var(--line);
+    box-shadow:
+      var(--shadow),
+      inset 0 1px 0 rgb(255 255 255 / 0.28);
+  }
+
+  /* Sadu weaving band in the thermal colours. A mask cuts the pattern out of the gradient. */
+  .sadu {
+    height: 20px;
+    background: var(--thermal);
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='20'%3E%3Cpath d='M0 0h10L5 4zM10 0h10l-5 4zM20 0h10l-5 4zM30 0h10l-5 4zM0 20h10l-5-4zM10 20h10l-5-4zM20 20h10l-5-4zM30 20h10l-5-4zM0 6l4 4-4 4zM40 6l-4 4 4 4z'/%3E%3Cpath fill-rule='evenodd' d='M20 3l7 7-7 7-7-7zM20 7l-3 3 3 3 3-3z'/%3E%3C/svg%3E") repeat-x center;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='20'%3E%3Cpath d='M0 0h10L5 4zM10 0h10l-5 4zM20 0h10l-5 4zM30 0h10l-5 4zM0 20h10l-5-4zM10 20h10l-5-4zM20 20h10l-5-4zM30 20h10l-5-4zM0 6l4 4-4 4zM40 6l-4 4 4 4z'/%3E%3Cpath fill-rule='evenodd' d='M20 3l7 7-7 7-7-7zM20 7l-3 3 3 3 3-3z'/%3E%3C/svg%3E") repeat-x center;
+  }
+
+  .night {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    border-radius: 32px;
+    background: var(--night);
+    color: #f8efe3;
+  }
+
+  .eyebrow {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--muted);
+  }
+
+  .kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.2rem 0.7rem;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--muted);
+  }
+
+  .kicker::before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    border-radius: 1.5px;
+    transform: rotate(45deg);
+    background: var(--ember);
+  }
+
+  .thermal-text {
+    background-image: linear-gradient(var(--thermal-dir), var(--teal), var(--amber) 55%, var(--ember));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    /* The gradient only paints inside this box, so it has to reach Arabic dots and marks. */
+    padding-block: 0.4em;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 46px;
+    padding: 0.55rem 1.3rem;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    font-weight: 600;
+    font-size: 0.95rem;
+    line-height: 1.25;
+    text-align: center;
+    transition:
+      background-color 0.18s,
+      border-color 0.18s,
+      color 0.18s,
+      transform 0.18s;
+  }
+
+  .btn:active:not(:disabled) {
+    transform: translateY(1px);
+  }
+
+  .btn:disabled {
+    opacity: 0.45;
+  }
+
+  .btn-primary {
+    background: var(--ink);
+    color: var(--bg);
+  }
+
+  .btn-primary:hover:not(:disabled) {
+    background: color-mix(in srgb, var(--ink) 86%, var(--ember));
+  }
+
+  .btn-ghost {
+    background: transparent;
+    border-color: var(--line);
+    color: var(--ink);
+  }
+
+  .btn-ghost:hover:not(:disabled) {
+    background: var(--surface-2);
+  }
+
+  .btn-light {
+    background: #fbf3e6;
+    color: #2b1d14;
+  }
+
+  .btn-light:hover {
+    background: #ffffff;
+  }
+
+  .btn-outline-light {
+    border-color: rgb(255 255 255 / 0.28);
+    color: #ffffff;
+  }
+
+  .btn-outline-light:hover {
+    background: rgb(255 255 255 / 0.1);
+  }
+
+  .tone-low,
+  .tone-green {
+    --tone: var(--low);
+  }
+
+  .tone-medium,
+  .tone-amber {
+    --tone: var(--medium);
+  }
+
+  .tone-high {
+    --tone: var(--high);
+  }
+
+  .tone-critical,
+  .tone-red {
+    --tone: var(--critical);
+  }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.12rem 0.55rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+    color: var(--tone);
+    background: color-mix(in srgb, var(--tone) 13%, transparent);
+  }
+
+  .dot {
+    display: inline-block;
+    flex: none;
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: var(--tone);
+  }
+
+  .heat-cell {
+    background: color-mix(in srgb, var(--tone) 17%, var(--surface));
+    border: 1px solid color-mix(in srgb, var(--tone) 24%, transparent);
+  }
+
+  .heat-cell[data-over='true'] {
+    background: color-mix(in srgb, var(--tone) 34%, var(--surface));
+    outline: 2px solid var(--tone);
+    outline-offset: -2px;
+  }
+
+  .field {
+    width: 100%;
+    min-height: 46px;
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    color: var(--ink);
+    font: inherit;
+    font-size: 0.95rem;
+  }
+
+  .field::placeholder {
+    color: var(--muted);
+  }
+
+  .seg {
+    display: inline-flex;
+    padding: 3px;
+    border-radius: 999px;
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+  }
+
+  .seg-btn {
+    min-height: 38px;
+    padding: 0.3rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--muted);
+    transition:
+      background-color 0.18s,
+      color 0.18s;
+  }
+
+  .seg-btn[aria-pressed='true'] {
+    background: var(--surface);
+    color: var(--ink);
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.12);
+  }
+
+  .filter-chip {
+    min-height: 36px;
+    padding: 0.2rem 0.75rem;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--muted);
+    transition:
+      background-color 0.18s,
+      color 0.18s,
+      border-color 0.18s;
+  }
+
+  .filter-chip[aria-pressed='true'] {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--bg);
+  }
+
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+
+  .data-table th {
+    padding: 0.5rem 0.6rem;
+    text-align: start;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--muted);
+    border-block-end: 1px solid var(--line);
+  }
+
+  .data-table td {
+    padding: 0.6rem;
+    vertical-align: top;
+    border-block-end: 1px solid var(--line);
+  }
+
+  .data-table tr:last-child td {
+    border-block-end: 0;
+  }
+}
+
+/* Home: a full-screen night scene, then a sheet of content that slides up over it. */
+.hero-full {
+  margin-top: -3.5rem;
+  border-radius: 0;
+}
+
+@media (min-width: 1024px) and (min-height: 760px) {
+  .hero-full {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+  }
+}
+
+.sheet {
+  position: relative;
+  z-index: 1;
+  margin-top: -2.25rem;
+  padding-top: 1.25rem;
+  border-radius: 36px 36px 0 0;
+  background:
+    radial-gradient(60rem 34rem at 92% -6rem, color-mix(in srgb, var(--heat-colour) 16%, transparent), transparent 70%),
+    var(--bg);
+  box-shadow: 0 -24px 60px rgb(0 0 0 / 0.35);
+}
+
+/* Your months: tap a dot in each month and the line draws itself. */
+.month-labels {
+  display: grid;
+  grid-template-rows: repeat(5, 3.25rem);
+  flex: none;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.month-now {
+  position: absolute;
+  inset-block: 0;
+  right: 0;
+  width: calc(100% / 6);
+  border-radius: 16px;
+  background: var(--surface-2);
+}
+
+.month-dot {
+  display: grid;
+  place-items: center;
+  height: 3.25rem;
+  cursor: pointer;
+}
+
+.month-dot span {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--line);
+  transition:
+    scale 0.2s cubic-bezier(0.2, 0.7, 0.2, 1.4),
+    background-color 0.2s;
+}
+
+.month-dot:hover span {
+  scale: 1.5;
+  background: var(--muted);
+}
+
+.month-dot input:focus-visible + span {
+  outline: 2px solid var(--focus);
+  outline-offset: 8px;
+}
+
+.month-mark {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  translate: -50% -50%;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 0 5px color-mix(in srgb, currentColor 22%, transparent);
+  pointer-events: none;
+  animation: mark-in 0.22s cubic-bezier(0.2, 0.7, 0.2, 1.3);
+}
+
+@keyframes mark-in {
+  from {
+    scale: 0.4;
+  }
+}
+
+@media (min-width: 640px) {
+  .month-labels {
+    grid-template-rows: repeat(5, 3.75rem);
+    font-size: 0.9rem;
+  }
+
+  .month-dot {
+    height: 3.75rem;
+  }
+}
+
+/* Warning signs: tiles that keep their size when ticked, so nothing jumps. */
+.sign-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  min-height: 7.5rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  font-size: 0.95rem;
+  line-height: 1.35;
+  text-align: start;
+  transition:
+    border-color 0.2s,
+    background-color 0.2s,
+    translate 0.2s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+@media (hover: hover) {
+  .sign-tile:hover {
+    border-color: var(--ink);
+    translate: 0 -2px;
+  }
+}
+
+.sign-tile-on {
+  border-color: var(--ember);
+  background: color-mix(in srgb, var(--ember) 9%, var(--surface));
+}
+
+.sign-box {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border: 2px solid var(--line);
+  border-radius: 8px;
+  color: #fff;
+  transition:
+    background-color 0.2s,
+    border-color 0.2s;
+}
+
+.sign-tile-on .sign-box {
+  border-color: var(--ember);
+  background: var(--ember);
+}
+
+.sign-meter {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  transition: background-color 0.25s;
+}
+
+.sign-meter-on {
+  background: var(--ember);
+}
+
+@media (max-width: 639px) {
+  .sign-tile {
+    flex-direction: row;
+    align-items: center;
+    min-height: 4rem;
+  }
+}
+
+/* Six areas as an editorial list, not another grid of cards. */
+.area-row {
+  display: grid;
+  grid-template-columns: 2.25rem minmax(0, 1fr);
+  gap: 0.15rem 0.75rem;
+  align-items: baseline;
+  padding-block: 1.1rem;
+  padding-inline: 0.25rem;
+  border-block-end: 1px solid var(--line);
+  transition:
+    background-color 0.3s,
+    padding-inline 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.area-row p {
+  grid-column: 2;
+}
+
+.area-name {
+  font-size: clamp(1.7rem, 4.6vw, 3.4rem);
+}
+
+@media (min-width: 768px) {
+  .area-row {
+    grid-template-columns: 3.5rem minmax(0, 1fr) minmax(0, 1fr);
+    padding-block: 1.5rem;
+  }
+
+  .area-row p {
+    grid-column: 3;
+  }
+}
+
+@media (hover: hover) {
+  .area-row:hover {
+    padding-inline: 1.25rem;
+    background: color-mix(in srgb, var(--heat-colour) 9%, transparent);
+  }
+}
+
+/* Large word closing the page, sized so the whole word always fits. */
+.giant-word {
+  padding: 0.1em 1.25rem 0.2em;
+  font-family: var(--f-display);
+  font-size: clamp(3.75rem, 15vw, 13rem);
+  font-weight: 800;
+  line-height: 1.2;
+  text-align: center;
+  white-space: nowrap;
+  background-image: var(--thermal);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* An ember that trails the mouse. */
+.ember-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 70;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+
+.ember-cursor[data-on='true'] {
+  opacity: 1;
+}
+
+.ember-cursor span {
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  margin: -17px 0 0 -17px;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--heat-colour) 70%, #fff) 0 10%, color-mix(in srgb, var(--heat-colour) 40%, transparent) 32%, transparent 70%);
+  transition: scale 0.25s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.ember-cursor[data-big='true'] span {
+  scale: 2;
+}
+
+/* Hand-drawn stroke under the key word, drawn on after the headline lands. */
+.scribble {
+  position: absolute;
+  inset-inline: 0;
+  bottom: -0.09em;
+  width: 100%;
+  height: 0.16em;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.scribble path {
+  fill: none;
+  stroke: var(--ember);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: scribble 0.8s 0.95s cubic-bezier(0.3, 0.7, 0.2, 1) forwards;
+}
+
+:root[dir='rtl'] .scribble {
+  transform: scaleX(-1);
+}
+
+@keyframes scribble {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Thin line along the top of the page that heats up as you scroll. */
+.scroll-line {
+  display: none;
+}
+
+@supports (animation-timeline: scroll()) {
+  .scroll-line {
+    display: block;
+    position: fixed;
+    inset-inline: 0;
+    top: 0;
+    z-index: 50;
+    height: 3px;
+    background: var(--thermal);
+    transform-origin: left;
+    animation: scroll-grow linear both;
+    animation-timeline: scroll(root);
+  }
+
+  :root[dir='rtl'] .scroll-line {
+    transform-origin: right;
+  }
+
+  /* Layers of the night scene drift apart as the sheet rises. */
+  @media (min-width: 1024px) and (min-height: 760px) {
+    .hero-copy,
+    .parallax-moon,
+    .parallax-far,
+    .parallax-near {
+      animation: linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 90svh;
+    }
+
+    .hero-copy {
+      animation-name: drift-copy;
+    }
+
+    .parallax-moon {
+      animation-name: drift-moon;
+    }
+
+    .parallax-far {
+      animation-name: drift-far;
+    }
+
+    .parallax-near {
+      animation-name: drift-near;
+    }
+  }
+
+  /* The top bar tightens into an island as the page scrolls. */
+  @media (min-width: 1024px) {
+    .island {
+      animation: island linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 240px;
+    }
+  }
+
+  /* Uses translate, not transform, so it never fights Framer Motion. */
+  .scroll-rise {
+    animation: scroll-rise linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 38%;
+  }
+}
+
+@keyframes drift-copy {
+  to {
+    opacity: 0.1;
+    translate: 0 -70px;
+  }
+}
+
+@keyframes drift-moon {
+  to {
+    translate: 0 -120px;
+  }
+}
+
+@keyframes drift-far {
+  to {
+    translate: 0 26px;
+  }
+}
+
+@keyframes drift-near {
+  to {
+    translate: 0 64px;
+  }
+}
+
+@keyframes island {
+  to {
+    margin-inline: 6%;
+  }
+}
+
+@keyframes scroll-grow {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+@keyframes scroll-rise {
+  from {
+    opacity: 0;
+    translate: 0 28px;
+  }
+}
+
+/* Light that follows the cursor around the edge of a card. */
+.card::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  z-index: 1;
+  border-radius: inherit;
+  padding: 1px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+  background: radial-gradient(
+    220px circle at var(--edge-x, 50%) var(--edge-y, 50%),
+    var(--heat-colour),
+    transparent 75%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box exclude,
+    linear-gradient(#000 0 0);
+}
+
+@media (hover: hover) {
+  .card:hover::after {
+    opacity: 1;
+  }
+}
+
+/* Moving light around the one card that matters most right now. */
+.beam::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  z-index: 1;
+  border-radius: inherit;
+  padding: 2px;
+  pointer-events: none;
+  background: conic-gradient(from var(--beam), transparent 0 62%, var(--teal), var(--amber), var(--ember), transparent);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box exclude,
+    linear-gradient(#000 0 0);
+  animation: beam-spin 7s linear infinite;
+}
+
+@keyframes beam-spin {
+  to {
+    --beam: 360deg;
+  }
+}
+
+/* Soft film grain over the night scenes. */
+.night::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0.1;
+  mix-blend-mode: overlay;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.star {
+  animation: twinkle 3.6s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  50% {
+    opacity: 0.25;
+  }
+}
+
+.magnetic {
+  display: inline-flex;
+  transform: translate(var(--pull-x, 0), var(--pull-y, 0));
+  transition: transform 0.25s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* The new theme grows out of the toggle instead of the default crossfade. */
+.theme-flip::view-transition-old(root),
+.theme-flip::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+.theme-flip::view-transition-new(root) {
+  z-index: 2;
+}
+
+/* Logo lockup: the Arabic word sets the width and the Latin letters spread to match it. */
+.logo-word {
+  display: inline-grid;
+  justify-items: stretch;
+  width: min-content;
+  row-gap: 0.1em;
+}
+
+.logo-ar {
+  font-family: 'Alexandria Variable', var(--f-display);
+  font-weight: 800;
+  line-height: 1.02;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.logo-en {
+  display: flex;
+  justify-content: space-between;
+  width: 0;
+  min-width: 100%;
+  font-family: 'JetBrains Mono Variable', monospace;
+  font-weight: 600;
+  font-size: 0.52em;
+  line-height: 1;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.32s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .scroll-rise,
+  .hero-copy,
+  .parallax-moon,
+  .parallax-far,
+  .parallax-near,
+  .beam::before,
+  .star {
+    animation: none;
+  }
+
+  .magnetic {
+    transform: none;
+  }
+
+
+}
